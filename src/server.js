@@ -10,6 +10,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/index.js';
 
 dotenv.config();
 const PORT = Number(getEnvVar('PORT', '2000'));
@@ -29,6 +30,8 @@ export const setupServer = () => {
     }),
   );
 
+  app.use('/uploads', express.static(UPLOAD_DIR));
+
   app.get('/', (req, res) => {
     res.json({ message: 'Hello, World!' });
   });
@@ -40,4 +43,5 @@ export const setupServer = () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
 };
+
 
